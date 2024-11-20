@@ -10,7 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: reviewdog/action-eslint@v1
-      - run: yarn lint
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review # Change reporter.
