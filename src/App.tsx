@@ -5,10 +5,12 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-
+let post = 1
   return (
     <>
       <div>
+        {current name}
+        {testdata}
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
