@@ -22,12 +22,12 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       # Run ESLint and reviewdog
       - name: Run ESLint with reviewdog
         run: |
-          npm run lint | reviewdog -efm="%f:%l:%c: %m" \
+          yarn lint | reviewdog -efm="%f:%l:%c: %m" \
                               -name="ESLint" \
                               -reporter=github-pr-review \
                               -level=error
