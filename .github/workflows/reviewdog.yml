@@ -1,5 +1,6 @@
 name: reviewdog
 on: [pull_request, push]
+
 jobs:
   eslint:
     name: runner / eslint
@@ -7,10 +8,28 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+
     steps:
+      # Checkout the repository
       - uses: actions/checkout@v4
-      - uses: reviewdog/action-eslint@v1
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review # Change reporter.
-          eslint_flags: "src/"
+          node-version: 'lts/*'
+          cache: 'yarn'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: yarn install
+
+      # Run ESLint and reviewdog
+      - name: Run ESLint with reviewdog
+        run: |
+          yarn lint | reviewdog -efm="%f:%l:%c: %m" \
+                              -name="ESLint" \
+                              -reporter=github-pr-review \
+                              -level=error
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
