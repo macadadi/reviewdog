@@ -1,5 +1,5 @@
 name: reviewdog
-on: [pull_request, push]
+on: [pull_request]
 
 jobs:
   eslint:
@@ -22,12 +22,12 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       # Run ESLint and reviewdog
       - name: Run ESLint with reviewdog
         run: |
-          yarn lint | reviewdog -efm="%f:%l:%c: %m" \
+          npm run lint | reviewdog -efm="%f:%l:%c: %m" \
                               -name="ESLint" \
                               -reporter=github-pr-review \
                               -level=error
